@@ -33,7 +33,7 @@ if (isset( $user ) ) {
     $data = $client->__soapCall( "Officerlogin", $params );
     $mydata = json_decode( $data, true ); // json decode from web service
     if ( count( $mydata ) == 0 ) {
-       echo "0111";
+       echo 0;
     } else {
       ?>
 <?php
@@ -47,7 +47,7 @@ foreach ( $mydata as $result ) {
     $_SESSION[ 'SES_EN_REG_FAC_ID' ] = $facultyid;
     echo 2;//เข้าระบบสถานะอาจารย์
   } elseif ( $result[ "xpass" ] == 0 ) {
-    echo "02222";
+    echo 0;
   }
 
   }
@@ -63,7 +63,7 @@ foreach ( $mydata as $result ) {
 
 
   if ( count( $mydata ) == 0 ) {
-     echo "03333";
+     echo 0;
   } else {
     ?>
 <?php
@@ -117,7 +117,7 @@ foreach ( $mydata as $result ) {
                           if($k=='ADMITSEMESTER'){
                             $ADMITSEMESTER = $v;
                           }
-                          if($k=='PREFIXNAME'){
+                          if($k=='prefixname'){
                             $PREFIXNAME = $v;
                           }
                           if($k=='STUDENTNAME'){
@@ -186,7 +186,7 @@ foreach ( $mydata as $result ) {
                    }
     echo 1; // เข้าระบบได้เป็นสถานะ นิสิต
   } else {
-    echo "04444";
+    echo 0;
   }
 }
 }
@@ -206,7 +206,7 @@ foreach ( $mydata as $result ) {
 								
 									
 								  }else {
-									 echo 05555; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
+									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
 								 
 	
 								}
@@ -216,7 +216,7 @@ foreach ( $mydata as $result ) {
      
   
 } else {
-    echo 066666;//กลับหน้า login
+    echo 0;//กลับหน้า login
 }
 
 
