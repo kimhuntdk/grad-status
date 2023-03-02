@@ -323,6 +323,7 @@
                     
                   <div class="card">
                     <div class="table-responsive">
+                    <div class="container">
                       <form action="" method="post">
                          <!-- เงื่อนไข ให้มีการเลือกส่งตรวจ รอบที่ 1 ให้ส่งเองตามเอกสารที่ บว หรือ ส่งไฟล์ในระบบ -->
                          <label>ส่งครั้งที่ 1 เลือกวิธีการส่งตรวจ</label>
@@ -332,8 +333,46 @@
                             <option value='2'>ส่งไฟล์ชุดจริงที่ บว</option>
                          </select>
                       </form>
-                    <div id="form-data">
+                    <div id="form-data" >
+                      <div class="container">
                         Form T2
+                        <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">ประเภทวิทยานิพนธ์</label>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Thesis" >
+                        <label class="form-check-label" for="gridRadios1">
+                          Thesis
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="IS" >
+                        <label class="form-check-label" for="gridRadios1">
+                          IS
+                        </label>
+                      </div>
+                      </div>
+                        <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">File T2</label>
+                        <input type="file" class="form-control" id="FileT2" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">ไฟล์หรือลิงค์</label>
+                        File:
+                        <input type="radio" name="type_file_url" id="type_file_url" class="type_file_url" value="1">
+                        url:
+                        <input type="radio" name="type_file_url" id="type_file_url"  class="type_file_url" value="2">
+                        <div id="show-file">
+                         <input type="file" name="FileT2" id="FileT2" class="form-control">
+                       </div>
+                       <div id="show-link">
+                        <input type="text" name="urlT2" id="urlT2" class="form-control">
+                       </div>
+                      <div class="mb-3">
+                        <label  class="form-label">File Thesis/IS</label>
+                        <input type="file" class="form-control" id="FileTS" required>
+                      </div>
+         
+                    </div>
                     </div>
                     <div id="form-send">
                         Confrim File 
@@ -401,15 +440,41 @@
         $(function() {
             $("#form-data").hide();
             $("#form-send").hide();
+            $("#show-file").hide();
+            $("#show-link").hide();
             $( "#chkVal" ).change(function() {
               var id = $('#chkVal').val();
+              //alert(id);
               if(id==1){
                 $("#form-data").show();
                 $("#form-send").hide();
+       
+
               }else if(id==2){
                 $("#form-send").show();
                 $("#form-data").hide();
               }
+              // $( "#type_file_url" ).change(function() {
+              //     var type_id = $('#type_file_url').val();
+              //     alert(type_id);
+              //      if(type_id==1){
+              //       $("#show-file").show();
+              //       $("#show-link").hide();
+              //      }else if(type_id==2){
+              //       $("#show-file").hide();
+              //       $("#show-link").show();
+              //      }
+              //   });
+              $('input[type=radio][name=type_file_url]').change(function() {
+              if (this.value == '1') {
+                     $("#show-file").show();
+                     $("#show-link").hide();
+              }
+              else if (this.value == '2') {
+                     $("#show-file").hide();
+                    $("#show-link").show();
+              }
+          });
         });
     });
     </script>
