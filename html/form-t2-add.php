@@ -335,17 +335,18 @@
                       </form>
                     <div id="form-data" >
                       <div class="container">
-                        Form T2
+                        <form action="t2-send.php" method="post"  name="from" enctype="multipart/form-data">
+                        <!-- <h3> Form T2 ตรวจรูปแบบ</h3> -->
                         <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">ประเภทวิทยานิพนธ์</label>
+                        <label for="exampleFormControlInput1" class="form-label"><strong> ประเภทวิทยานิพนธ์</strong></label>
                         <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Thesis" >
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="Thesis" required >
                         <label class="form-check-label" for="gridRadios1">
                           Thesis
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="IS" >
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="IS" required >
                         <label class="form-check-label" for="gridRadios1">
                           IS
                         </label>
@@ -353,36 +354,47 @@
                       </div>
                         <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">File T2</label>
-                        <input type="file" class="form-control" id="FileT2" required>
+                        <input type="file" class="form-control" id="FileT2" name="FileT2" required>
                       </div>
                       <div class="mb-3">
+                        <label  class="form-label"><strong> File Thesis/IS</strong></label>
                         <label for="exampleFormControlInput1" class="form-label">ไฟล์หรือลิงค์</label>
                         File:
-                        <input type="radio" name="type_file_url" id="type_file_url" class="type_file_url" value="1">
+                        <input type="radio" name="type_file_url" id="type_file_url" class="form-check-input" value="1" required>
                         url:
-                        <input type="radio" name="type_file_url" id="type_file_url"  class="type_file_url" value="2">
+                        <input type="radio" name="type_file_url" id="type_file_url"  class="form-check-input" value="2" required>
                         <div id="show-file">
-                         <input type="file" name="FileT2" id="FileT2" class="form-control">
+                         <input type="file" name="FileThesis" id="FileThesis" class="form-control">
                        </div>
                        <div id="show-link">
-                        <input type="text" name="urlT2" id="urlT2" class="form-control">
+                        <input type="text" name="urlThesis" id="urlThesis" class="form-control" placeholder="http..">
                        </div>
                       <div class="mb-3">
-                        <label  class="form-label">File Thesis/IS</label>
-                        <input type="file" class="form-control" id="FileTS" required>
+                        <label  class="form-label"><strong>File Submitsion</strong></label>
+                        <input type="file" class="form-control" id="FileSubmit" name="FileSubmit" >
                       </div>
-         
-                    </div>
-                    </div>
-                    <div id="form-send">
-                        Confrim File 
-                    </div>
-                    <div class="mt-2">
-                      <button type="submit" class="btn btn-success">Submit</button>
+                           <div class="mt-2">
+                    
+                      <input type="submit" name="submit" value="Submit" class="btn btn-success">
                     <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
                     </div>
+                    </div>
+                    </div>
+                           </div>
+                  </form>
+                    <div id="form-send">
+                      <form action="t2-send.php" method="post"  name="from">
+                        Confrim File 
+                        <input type="submit" name="submit" value="Submit" class="btn btn-success">
+
+                    <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
+                      </form>
+                    </div>
+                    <div class="mt-2">
+                      
+                    </div>
                     <!-- /Notifications -->
-                  </div>
+           
                 </div>
               </div>
             </div>
@@ -454,17 +466,7 @@
                 $("#form-send").show();
                 $("#form-data").hide();
               }
-              // $( "#type_file_url" ).change(function() {
-              //     var type_id = $('#type_file_url').val();
-              //     alert(type_id);
-              //      if(type_id==1){
-              //       $("#show-file").show();
-              //       $("#show-link").hide();
-              //      }else if(type_id==2){
-              //       $("#show-file").hide();
-              //       $("#show-link").show();
-              //      }
-              //   });
+
               $('input[type=radio][name=type_file_url]').change(function() {
               if (this.value == '1') {
                      $("#show-file").show();
