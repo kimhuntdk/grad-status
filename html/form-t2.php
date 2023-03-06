@@ -1,3 +1,11 @@
+<?php
+@ob_start();
+@session_start();
+date_default_timezone_set( "Asia/Bangkok" );
+require_once( "../inc/db_connect.php" );
+$mysqli = connect();
+$std_id = $_SESSION['SES_EN_REG_USER'];
+?>
 <!DOCTYPE html>
 
 <!-- beautify ignore:start -->
@@ -333,65 +341,69 @@
                             <th class="text-center">วันที่ตรวจเสร็จ</th>
                           </tr>
                         </thead>
-                        
+   
                         <tbody>
+                        <?php
+                         $sql_show = "SELECT * FROM info_t2 WHERE std_id=".$std_id;
+                         $rs_show = $mysqli->query($sql_show);
+                         $i=1;
+                         foreach($rs_show as $row){
+                        ?>
                           <tr>
-                            <td class="text-center">1</td>
-                            <td>ส่งตรวจครั้งที่ 1
+                            <td class="text-center"><?php echo $i;?></td>
+                            <td>ส่งตรวจครั้งที่ <?php echo $i;?>
                               </td>                              
                               <td>
-                                <div class="form-check d-flex justify-content-center">
-                                  ไม่ผ่าน
+                                <?php
+                                  $sql_reslue = "SELECT rusultTest,examination_date FROM info_t2_check WHERE t2_id=".$row['t2_id'];
+                                  $rs_reslue = $mysqli->query($sql_reslue);
+                                  $row_reslue = $rs_reslue->fetch_array();
+                                  $rusultTest = $row_reslue['rusultTest'];
+                                  if($rusultTest==1){ ?>
+                                   <div class="form-check d-flex justify-content-center">
+                                   <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
                                 </div>
+                                <?php  }else if($rusultTest==2){ ?>
+                                  <div class="form-check d-flex justify-content-center">
+                                  <a href="#" data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
+                                </div>
+                               <?php   }else{
+
+                                ?>
+                                <div class="form-check d-flex justify-content-center">
+                                  รอดำเนินการ
+                                </div>
+                                <?php
+                                  }
+                                ?>
                               </td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                  12-12-2022
+                                  <?php echo $row['send_date'];?>
                               </div>
                             </td>
                             <td>
                               <div class="d-flex justify-content-center">
-                              14-12-2022
+                               <?php
+                                 if($rusultTest==0){
+                                    echo "-";
+                                 }else{
+                                    echo $row_reslue['examination_date'];
+                                 }
+                               ?>
                               </div>
                             </td>
                           </tr>
-                          <tr>
-                        </tbody>
-
-                        <tbody>
-                          <tr>
-                            <td class="text-center">2</td>
-                            <td>ส่งตรวจครั้งที่ 2 
-                              </td>    
-                            <td>
-                              <div class="form-check d-flex justify-content-center">
-                                ผ่าน
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                               18-12-2022
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                               20-12-2022
-                              </div>
-                            </td>
-                          </tr>
-</tbody>
-                           
-                           
-   
-                            
-                          </tr>
-                          
+                          <?php
+                          $i++;
+                         }
+                          ?>
                         </tbody>
                       </table>
                     </div>
                     <div class="mt-2">
-                      <button type="submit" class="btn btn-success">Add</button>
-                    <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
+                      <a type="submit" href="form-t2-add.php" class="btn btn-success">Add</a>
+                    
                     </div>
                     <!-- /Notifications -->
                   </div>
@@ -400,6 +412,25 @@
             </div>
             <!-- / Content -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดผลการตรวจรูปแบบ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="result"></div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -448,5 +479,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+
+$('.get_data').on('click',function() {
+	//alert("OK");
+     var id = $(this).attr("data-t2-id");
+    // alert(id);
+		$.post('get-t2-details.php',{ id:id },function(res){
+				$('#result').html(res).hide('slow').show('slow');
+			});	
+
+  });
+    </script>
   </body>
 </html>

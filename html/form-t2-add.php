@@ -1,3 +1,16 @@
+<?php
+@ob_start();
+@session_start();
+date_default_timezone_set( "Asia/Bangkok" );
+require_once( "../inc/db_connect.php" );
+$mysqli = connect();
+$std_id = $_SESSION['SES_EN_REG_USER'];
+//ตรวจสอบก่อนว่ามีการส่งตรวจแล้วหรือไม่
+$sql_chk = "SELECT * FROM info_t2 WHERE std_id=".$std_id;
+$rs_chk = $mysqli->query($sql_chk);
+$num_chk = $rs_chk->num_rows;
+
+?>
 <!DOCTYPE html>
 
 <!-- beautify ignore:start -->
@@ -323,6 +336,9 @@
                     
                   <div class="card">
                     <div class="table-responsive">
+                      <?php
+                        if($num_chk==0){
+                      ?>
                     <div class="container">
                       <form action="" method="post">
                          <!-- เงื่อนไข ให้มีการเลือกส่งตรวจ รอบที่ 1 ให้ส่งเองตามเอกสารที่ บว หรือ ส่งไฟล์ในระบบ -->
@@ -396,10 +412,63 @@
                     <!-- /Notifications -->
            
                 </div>
+                <?php  
+                        } else {
+                ?>
+                 <div class="container">
+                        <form action="t2-send.php" method="post"  name="from" enctype="multipart/form-data">
+                        <!-- <h3> Form T2 ตรวจรูปแบบ</h3> -->
+                        <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><strong> ประเภทวิทยานิพนธ์</strong></label>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="Thesis" required >
+                        <label class="form-check-label" for="gridRadios1">
+                          Thesis
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="IS" required >
+                        <label class="form-check-label" for="gridRadios1">
+                          IS
+                        </label>
+                      </div>
+                      </div>
+                        <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">File T2</label>
+                        <input type="file" class="form-control" id="FileT2" name="FileT2" required>
+                      </div>
+                      <div class="mb-3">
+                        <label  class="form-label"><strong> File Thesis/IS</strong></label>
+                        <label for="exampleFormControlInput1" class="form-label">ไฟล์หรือลิงค์</label>
+                        File:
+                        <input type="radio" name="type_file_url" id="type_file_url" class="form-check-input" value="1" required>
+                        url:
+                        <input type="radio" name="type_file_url" id="type_file_url"  class="form-check-input" value="2" required>
+                        <div id="show-file">
+                         <input type="file" name="FileThesis" id="FileThesis" class="form-control">
+                       </div>
+                       <div id="show-link">
+                        <input type="text" name="urlThesis" id="urlThesis" class="form-control" placeholder="http..">
+                       </div>
+                      <div class="mb-3">
+                        <label  class="form-label"><strong>File Submitsion</strong></label>
+                        <input type="file" class="form-control" id="FileSubmit" name="FileSubmit" >
+                      </div>
+                           <div class="mt-2">
+                    
+                      <input type="submit" name="submit" value="Submit" class="btn btn-success">
+                    <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
+                    </div>
+                    </div>
+                        </from>
+                    </div>
+
+
+                 <?php } ?>
               </div>
             </div>
             <!-- / Content -->
-
+            
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -468,6 +537,7 @@
               }
 
               $('input[type=radio][name=type_file_url]').change(function() {
+                alert(this.value);
               if (this.value == '1') {
                      $("#show-file").show();
                      $("#show-link").hide();
