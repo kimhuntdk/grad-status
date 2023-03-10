@@ -55,9 +55,7 @@ $row_result = $rs_chk->fetch_array();
         ?>
         <td>
         <?php 
-
             echo $row_result['mes_file_submit'];
-          
         ?>
       </td>
     </tr>

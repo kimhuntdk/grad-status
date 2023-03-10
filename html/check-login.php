@@ -12,8 +12,6 @@ $pass = sha1( $_POST[ 'pass' ] ); //เข้ารหัสผ่านด้�
 $user = $mysqli->real_escape_string( $user );
 $pass = $mysqli->real_escape_string( $pass );
 $user;
-
-
 if (isset( $user ) ) {
 
   $user_number = strlen($user);
@@ -191,7 +189,8 @@ foreach ( $mydata as $result ) {
 }
 }
 } if(is_string($user) and $status=""){
-  		$sql_chk_sf = "select staff_username,staff_pass,staff_faculty_id FROM  request_staff_faculty WHERE  staff_username='$user'";
+    echo "------";
+  	$sql_chk_sf = "select staff_username,staff_pass,staff_faculty_id FROM  request_staff_faculty WHERE  staff_username='$user'";
 		$rs_chk_sf = $mysqli->query($sql_chk_sf);
 		$row_chk_sf =$rs_chk_sf->fetch_array();
 		$pass_t_sf = $row_chk_sf['staff_pass'];
@@ -202,9 +201,7 @@ foreach ( $mydata as $result ) {
 										$_SESSION['SES_EN_REG_ID'] = session_id();
 										$_SESSION['SES_EN_REG_USER'] 	= $user;
 										$_SESSION['SES_EN_REG_FAC_ID'] 	= $staff_faculty_id;
-									 echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
-								
-									
+									  echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
 								  }else {
 									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
 								 

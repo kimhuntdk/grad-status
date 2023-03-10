@@ -326,12 +326,6 @@ $num_chk = $rs_chk->num_rows;
                         </li>
                   </ul>
                 
-                
-                  
-                  
-                
-               
-
                     <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจ T2</h4>
                     
                   <div class="card">
@@ -441,9 +435,9 @@ $num_chk = $rs_chk->num_rows;
                         <label  class="form-label"><strong> File Thesis/IS</strong></label>
                         <label for="exampleFormControlInput1" class="form-label">ไฟล์หรือลิงค์</label>
                         File:
-                        <input type="radio" name="type_file_url" id="type_file_url" class="form-check-input" value="1" required>
+                        <input type="radio" name="type_file_url" id="type_file_url1" class="form-check-input" value="1" required>
                         url:
-                        <input type="radio" name="type_file_url" id="type_file_url"  class="form-check-input" value="2" required>
+                        <input type="radio" name="type_file_url" id="type_file_url1"  class="form-check-input" value="2" required>
                         <div id="show-file">
                          <input type="file" name="FileThesis" id="FileThesis" class="form-control">
                        </div>
@@ -535,8 +529,20 @@ $num_chk = $rs_chk->num_rows;
                 $("#form-send").show();
                 $("#form-data").hide();
               }
-
+              //ฟอร์มส่งครั้งแรก
               $('input[type=radio][name=type_file_url]').change(function() {
+                alert(this.value);
+              if (this.value == '1') {
+                     $("#show-file").show();
+                     $("#show-link").hide();
+              }
+              else if (this.value == '2') {
+                     $("#show-file").hide();
+                    $("#show-link").show();
+              }
+          });
+          //ฟอร์มส่งครั้งที่ 2
+          $('input[type=radio][id=type_file_url1]').change(function() {
                 alert(this.value);
               if (this.value == '1') {
                      $("#show-file").show();
