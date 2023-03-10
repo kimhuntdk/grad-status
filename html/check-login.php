@@ -12,13 +12,17 @@ $pass = sha1( $_POST[ 'pass' ] ); //เข้ารหัสผ่านด้�
 $user = $mysqli->real_escape_string( $user );
 $pass = $mysqli->real_escape_string( $pass );
 $user;
+
+
 if (isset( $user ) ) {
 
   $user_number = strlen($user);
-  if($user_number>10){
+  if($user_number>10 and is_numeric($user)){
 	  $status=1; //นิสิต
-  }else{
+  }else if(is_numeric($user)){
 	  $status=2; //อาจารย์
+  }else{
+    $status = "";
   }
   //echo $status;
   if (is_numeric($user) and $status==2){
@@ -188,8 +192,9 @@ foreach ( $mydata as $result ) {
   }
 }
 }
-} if(is_string($user) and $status=""){
-    echo "------";
+} 
+//echo $status."= staff";
+if($status==""){
   	$sql_chk_sf = "select staff_username,staff_pass,staff_faculty_id FROM  request_staff_faculty WHERE  staff_username='$user'";
 		$rs_chk_sf = $mysqli->query($sql_chk_sf);
 		$row_chk_sf =$rs_chk_sf->fetch_array();
@@ -197,11 +202,13 @@ foreach ( $mydata as $result ) {
 		$staff_faculty_id = $row_chk_sf['staff_faculty_id'];
 	 	$num_chk_sf = $rs_chk_sf->num_rows;
 								if($num_chk_sf>0){
-									if($pass_t_sf==$pass and $staff_faculty_id == 0){
+									if($pass_t_sf==$pass){
 										$_SESSION['SES_EN_REG_ID'] = session_id();
 										$_SESSION['SES_EN_REG_USER'] 	= $user;
 										$_SESSION['SES_EN_REG_FAC_ID'] 	= $staff_faculty_id;
-									  echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
+									 echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
+								
+									
 								  }else {
 									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
 								 
