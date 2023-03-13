@@ -320,14 +320,8 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
                             ><i class=" bx bx-support"></i> ฟอร์มส่ง T2</a>
                         </li>
                   </ul>
-                
-                
-                  
-                  
-                
-               
 
-                    <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจ T2</h4>
+                  <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจ T2</h4>
                     
                   <div class="card">
                     <div class="table-responsive">
@@ -411,8 +405,6 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
               </div>
             </div>
             <!-- / Content -->
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -480,16 +472,14 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-
 $('.get_data').on('click',function() {
 	//alert("OK");
      var id = $(this).attr("data-t2-id");
     // alert(id);
-		$.post('gs-get-t2-details.php',{ id:id },function(res){
+		 $.post('gs-get-t2-details.php',{ id:id },function(res){
 				$('#result').html(res).hide('slow').show('slow');
 			});	
-
   });
-    </script>
+  </script>
   </body>
 </html>
