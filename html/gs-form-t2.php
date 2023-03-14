@@ -4,7 +4,15 @@
 date_default_timezone_set( "Asia/Bangkok" );
 require_once( "../inc/db_connect.php" );
 $mysqli = connect();
-echo $gs_id = $_SESSION['SES_EN_REG_USER'];
+$gs_id = $_SESSION['SES_EN_REG_USER'];
+
+//ฟังชั่นนับผลการส่งตรวจ
+function check_reulst($id){
+  $mysqli = connect();
+    $sql = "select * from info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where   info_t2.std_id=".$id;
+    $rs = $mysqli->query($sql);
+    return $rs->num_rows;
+}
 ?>
 <!DOCTYPE html>
 
@@ -325,10 +333,22 @@ echo $gs_id = $_SESSION['SES_EN_REG_USER'];
                     
                   <div class="card">
                     <div class="table-responsive">
+                      <div style="padding-bottom: 15px;">
+                      <form action="" method="post">
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <input type="submit" class="btn btn-outline-secondary" value="search" >
+                          </div>
+                          <input type="text" class="form-control" id="key_id" name="key_id" placeholder="search รหัสประจำตัวนิสิต" aria-label="" aria-describedby="basic-addon1">
+                        </div>
+                      </form>
+                      </div>
+
                       <table class="table ">
                         <thead>
                           <tr>
                             <th class="text-center">ลำดับ No.</th>
+                            <th class="text-center">ข้อมูลนิสิต</th>
                             <th class="text-center">รายการ</th>
                             <th class="text-center">การตรวจสอบ (Result)</th>
                             <th class="text-center">วันที่ส่งตรวจ</th>
@@ -338,14 +358,39 @@ echo $gs_id = $_SESSION['SES_EN_REG_USER'];
    
                         <tbody>
                         <?php
-                         $sql_show = "SELECT * FROM info_t2 order by  t2_id ";
+                         if(isset($_POST['key_id'])){
+                        if($_POST['key_id']!=""){
+                         $sql_show = "SELECT * FROM info_t2  left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id   WHERE   info_t2.std_id='$_POST[key_id]' AND  info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
                          $rs_show = $mysqli->query($sql_show);
+                         }else{
+                          $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                          $rs_show = $mysqli->query($sql_show);
+                         }
+                        }else{
+                          $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                          $rs_show = $mysqli->query($sql_show);
+                        }
                          $i=1;
                          foreach($rs_show as $row){
                         ?>
                           <tr>
                             <td class="text-center"><?php echo $i;?></td>
-                            <td>ส่งตรวจครั้งที่ <?php echo $i;?>
+                            <td class="text-center"><?php 
+                              //แสดงข้อมูลนิสิต
+                               $sql_std = "SELECT STUDENTCODE,PREFIXNAME,STUDENTNAME,STUDENTSURNAME,FACULTYNAME,LEVELID,PROGRAMNAME FROM info_student WHERE STUDENTCODE=".$row['std_id'];
+                              $rs_std = $mysqli->query( $sql_std );
+                              $row_std = $rs_std->fetch_array();
+                              echo "ID : ".$row_std['STUDENTCODE'];
+                              echo $row_std['PREFIXNAME'];
+                              echo $row_std['STUDENTNAME'];
+                              echo $row_std['STUDENTSURNAME'];
+                              echo "<br>";
+                              echo "Faculty ".$row_std['FACULTYNAME'];
+                              echo "Major :".$row_std['FACULTYNAME'];
+                            ?>
+                            
+                          </td>
+                            <td>ส่งตรวจครั้งที่ <?php echo check_reulst($row['std_id']);?>
                               </td>                              
                               <td>
                                 <?php
@@ -355,17 +400,17 @@ echo $gs_id = $_SESSION['SES_EN_REG_USER'];
                                   $rusultTest = $row_reslue['rusultTest'];
                                   if($rusultTest==1){ ?>
                                    <div class="form-check d-flex justify-content-center">
-                                   <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
+                                   <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-success get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
                                 </div>
                                 <?php  }else if($rusultTest==2){ ?>
                                   <div class="form-check d-flex justify-content-center">
-                                  <a href="#" data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
+                                  <a href="#" data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-danger get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
                                 </div>
                                <?php   }else{
 
                                 ?>
                                 <div class="form-check d-flex justify-content-center">
-                                  รอดำเนินการ
+                                <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-warning get_data" data-bs-toggle="modal" data-bs-target="#exampleModal"> รอดำเนินการ </a>
                                 </div>
                                 <?php
                                   }
@@ -407,7 +452,7 @@ echo $gs_id = $_SESSION['SES_EN_REG_USER'];
             <!-- / Content -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">รายละเอียดผลการตรวจรูปแบบ</h5>
