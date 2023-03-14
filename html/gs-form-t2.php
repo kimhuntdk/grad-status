@@ -4,13 +4,13 @@
 date_default_timezone_set( "Asia/Bangkok" );
 require_once( "../inc/db_connect.php" );
 $mysqli = connect();
-$gs_id = $_SESSION['SES_EN_REG_USER'];
+echo $gs_id = $_SESSION['SES_EN_REG_USER'];
 ?>
 <!DOCTYPE html>
 
 <!-- beautify ignore:start -->
 <html
-  lang="en"
+  lang="en"  
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
@@ -24,7 +24,7 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>ฟอร์ม T2</title>
+    <title>รายการตรวจรูปแบบ</title>
 
     <meta name="description" content="" />
 
@@ -301,7 +301,7 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">T2 /</span> form T2
+                <span class="text-muted fw-light">ตรวจรูปแบบ /</span> รายการตรวจรูปแบบ
               </h4>
 
               <div class="row">
@@ -313,7 +313,7 @@ $gs_id = $_SESSION['SES_EN_REG_USER'];
                     </li> 
                       <li class="nav-item">
                           <a class="nav-link " href="./journal-Add.html"
-                            ><i class=" bx bx-support"></i> ข้อมูล T2</a>
+                            ><i class=" bx bx-support"></i> ข้อมูลตรวจรูปแบบ</a>
                         </li> 
                         <li class="nav-item">
                           <a class="nav-link  " href="./journal-Edit.html"

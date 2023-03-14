@@ -207,14 +207,10 @@ if($status==""){
 										$_SESSION['SES_EN_REG_USER'] 	= $user;
 										$_SESSION['SES_EN_REG_FAC_ID'] 	= $staff_faculty_id;
 									 echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
-								
-									
 								  }else {
 									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
-								 
-	
 								}
-							}
+			}
 }
   
      

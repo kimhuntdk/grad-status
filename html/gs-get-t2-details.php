@@ -22,7 +22,19 @@ $row_result = $rs_chk->fetch_array();
 </tr>
   <tbody>
     <tr>
-      <td>TS5/IS5,T2,I2 (สำเนา): </td>
+      <td>TS5/IS5,T2,I2 (สำเนา): 
+      <?php
+                //แสดงเอกสารแนบ T2 
+                $file_t2 = $row_result['fileT2'];
+                if($file_t2!=""){ ?>
+                  <a href="<?php echo $row_result['fileT2'];?>" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-down" viewBox="0 0 16 16">
+        <path d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z"/>
+        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+      </svg></a>
+               <?php }else{
+                  echo "ไม่พบเอกสารแนบ";
+                }
+      ?></td>
       <td>
         <?php 
           if($row_result['file_t2']==1){
@@ -32,7 +44,21 @@ $row_result = $rs_chk->fetch_array();
           }else{
             echo "รอดำเนินการ";
           }
+
+
         ?>
+           <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Default checked radio
+          </label>
+        </div>
       <td>
       <?php 
 
@@ -42,7 +68,21 @@ $row_result = $rs_chk->fetch_array();
       </td>
     </tr>
     <tr>
-      <td>ใบนำส่ง (จากระบบ iThesis เมนู Submission Document: </td>
+      <td>ใบนำส่ง (จากระบบ iThesis เมนู Submission Document:
+      <?php
+                //แสดงเอกสาร submission doc
+          
+                $fileSend_note = $row_result['fileSend_note'];
+                if($fileSend_note!=""){ ?>
+                  <a href="<?php echo $row_result['fileSend_note'];?>" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-down" viewBox="0 0 16 16">
+        <path d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z"/>
+        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+      </svg></a>
+               <?php }else{
+                  echo "ไม่พบเอกสารแนบ";
+                }
+      ?>
+     </td>
       <td>
       <?php 
           if($row_result['file_submit']==1){
@@ -61,7 +101,23 @@ $row_result = $rs_chk->fetch_array();
     </tr>
     <tr>
         <td colspan="3">ส่วนที่ตรวจสอบไฟล์ข้อมูลวิทยานิพนธ์ฉบับสมบูรณ์
-ประกอบด้วย ดังนี้<br></td>
+ประกอบด้วย ดังนี้ <?php
+ $thesis_file_link = $row_result['thesis_file_link'];
+                 //เอกสาร
+               
+                 $fileThesis = $row_result['fileThesis'];
+                 if($fileThesis!=""){ ?>
+                   <a href="<?php echo $row_result['fileThesis'];?>" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-down" viewBox="0 0 16 16">
+         <path d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z"/>
+         <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+       </svg></a>
+                <?php }else{
+                   echo "ไม่พบเอกสารแนบ";
+                 }
+
+?>
+
+<br></td>
     </tr>
     <tr>
       <td>1. ปกนอก (ชื่อเรื่องให้ตรวจสอบตรงกับ TS5,T2,I2 )</td>
