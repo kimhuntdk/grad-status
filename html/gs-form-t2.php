@@ -441,7 +441,7 @@ function check_reulst($id){
                       </table>
                     </div>
                     <div class="mt-2">
-                      <a type="submit" href="form-t2-add.php" class="btn btn-success">Add</a>
+                      <!-- <a type="submit" href="form-t2-add.php" class="btn btn-success">Add</a> -->
                     
                     </div>
                     <!-- /Notifications -->

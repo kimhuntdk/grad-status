@@ -23,18 +23,23 @@ $row_result = $rs_chk->fetch_array();
       echo "รอดำเนินการ";
     } ?>
   </h4>
+<div class="card text-start">
+  <div class="card-body">
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="rusultTest" id="rusultTest">
+    <input class="form-check-input" type="radio" name="rusultTest" id="rusultTest"  value="1" required>
     <label class="form-check-label" for="flexRadioDefault1">
       ผ่าน/pass
     </label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="rusultTest" id="rusultTest">
+    <input class="form-check-input" type="radio" name="rusultTest" id="rusultTest" value="2" required>
     <label class="form-check-label" for="flexRadioDefault2">
       ไม่ผ่าน/not pass
     </label>
   </div>
+  </div>
+</div>
+  
   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
     <tr>
       <th>รายการ</th>
@@ -73,13 +78,13 @@ $row_result = $rs_chk->fetch_array();
 
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="file_t2" id="file_t2">
+            <input class="form-check-input" type="radio" name="file_t2" id="file_t2" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="file_t2" id="file_t2">
+            <input class="form-check-input" type="radio" name="file_t2" id="file_t2" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -90,7 +95,7 @@ $row_result = $rs_chk->fetch_array();
           echo $row_result['mes_file_t2'];
 
           ?>
-          <input name="mes_file_t2" id="mes_file_t2" type="text" class="form-control">
+          <input name="mes_file_t2" id="mes_file_t2" type="text" class="form-control" value="<?php echo $row_result['mes_file_t2'];?>">
         </td>
       </tr>
       <tr>
@@ -123,13 +128,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="file_submit" id="file_submit">
+            <input class="form-check-input" type="radio" name="file_submit" id="file_submit" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="file_submit" id="file_submit">
+            <input class="form-check-input" type="radio" name="file_submit" id="file_submit" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -138,7 +143,7 @@ $row_result = $rs_chk->fetch_array();
           <?php
           echo $row_result['mes_file_submit'];
           ?>
-          <input name="mes_file_submit" id="mes_file_submit" type="text" class="form-control">
+          <input name="mes_file_submit" id="mes_file_submit" type="text" class="form-control" value="<?php echo $row_result['mes_file_submit'];?>">
         </td>
       </tr>
       <tr>
@@ -179,13 +184,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="cover" id="cover">
+            <input class="form-check-input" type="radio" name="cover" id="cover" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="cover" id="cover">
+            <input class="form-check-input" type="radio" name="cover" id="cover" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -210,13 +215,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="title_page" id="title_page">
+            <input class="form-check-input" type="radio" name="title_page" id="title_page" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="title_page" id="title_page">
+            <input class="form-check-input" type="radio" name="title_page" id="title_page" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -242,13 +247,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="approval_page" id="approval_page">
+            <input class="form-check-input" type="radio" name="approval_page" id="approval_page" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="approval_page" id="approval_page">
+            <input class="form-check-input" type="radio" name="approval_page" id="approval_page" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -274,13 +279,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="abstract_th_en" id="abstract_th_en">
+            <input class="form-check-input" type="radio" name="abstract_th_en" id="abstract_th_en" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="abstract_th_en" id="abstract_th_en">
+            <input class="form-check-input" type="radio" name="abstract_th_en" id="abstract_th_en" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -308,13 +313,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="table_contents" id="table_contents">
+            <input class="form-check-input" type="radio" name="table_contents" id="table_contents" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="table_contents" id="table_contents">
+            <input class="form-check-input" type="radio" name="table_contents" id="table_contents" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -340,13 +345,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="vita" id="vita">
+            <input class="form-check-input" type="radio" name="vita" id="vita" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="vita" id="vita">
+            <input class="form-check-input" type="radio" name="vita" id="vita" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -373,13 +378,13 @@ $row_result = $rs_chk->fetch_array();
           }
           ?>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="bibliography" id="bibliography">
+            <input class="form-check-input" type="radio" name="bibliography" id="bibliography" value="1" required>
             <label class="form-check-label" for="flexRadioDefault1">
               ผ่าน/pass
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="bibliography" id="bibliography">
+            <input class="form-check-input" type="radio" name="bibliography" id="bibliography" value="2" required>
             <label class="form-check-label" for="flexRadioDefault2">
               ไม่ผ่าน/not pass
             </label>
@@ -406,4 +411,11 @@ $row_result = $rs_chk->fetch_array();
 
     </tbody>
   </table>
+  <div class="card text-start">
+ 
+    <div class="card-body">
+      <input type="hidden" name="t2_id" value="<?php echo $id;?>">
+      <input type="submit" name="submit" value="Submit" class="btn btn-secondary" >
+    </div>
+  </div>
 </form>
