@@ -202,12 +202,18 @@ if($status==""){
 		$staff_faculty_id = $row_chk_sf['staff_faculty_id'];
 	 	$num_chk_sf = $rs_chk_sf->num_rows;
 								if($num_chk_sf>0){
-									if($pass_t_sf==$pass){
+									if($pass_t_sf==$pass and $staff_faculty_id==0 ){ //เจ้าหน้าบัณฑิตวิทยาลัย
 										$_SESSION['SES_EN_REG_ID'] = session_id();
 										$_SESSION['SES_EN_REG_USER'] 	= $user;
 										$_SESSION['SES_EN_REG_FAC_ID'] 	= $staff_faculty_id;
-									 echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
-								  }else {
+									  echo 3; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่ บัณฑิต
+                   } elseif($pass_t_sf==$pass and $staff_faculty_id!=0 ){
+                    $_SESSION['SES_EN_REG_ID'] = session_id();
+										$_SESSION['SES_EN_REG_USER'] 	= $user;
+										$_SESSION['SES_EN_REG_FAC_ID'] 	= $staff_faculty_id;
+									  echo 4; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่คณะ
+                  }
+								  else {
 									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
 								}
 			}
