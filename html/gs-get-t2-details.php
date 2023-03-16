@@ -14,7 +14,7 @@ $row_result = $rs_chk->fetch_array();
 
 ?>
 <form action="gs-check-formath-save.php" method="post">
-  <h4>สรุปผลการตรวจ :
+  <h5>สรุปผลการตรวจ :
     <?php if ($row_result['rusultTest'] == 1) {
       echo "ผ่าน";
     } elseif ($row_result['rusultTest'] == 2) {
@@ -22,7 +22,7 @@ $row_result = $rs_chk->fetch_array();
     } else {
       echo "รอดำเนินการ";
     } ?>
-  </h4>
+  </h5>
 <div class="card text-start">
   <div class="card-body">
   <div class="form-check">
@@ -415,6 +415,7 @@ $row_result = $rs_chk->fetch_array();
  
     <div class="card-body">
       <input type="hidden" name="t2_id" value="<?php echo $id;?>">
+      <input type="hidden" name="std_id" value="<?php echo $row_result['std_id'];?>" >
       <input type="submit" name="submit" value="Submit" class="btn btn-secondary" >
     </div>
   </div>

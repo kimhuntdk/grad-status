@@ -1,17 +1,18 @@
 <?php
 @ob_start();
 @session_start();
-date_default_timezone_set( "Asia/Bangkok" );
-require_once( "../inc/db_connect.php" );
+date_default_timezone_set("Asia/Bangkok");
+require_once("../inc/db_connect.php");
 $mysqli = connect();
 $gs_id = $_SESSION['SES_EN_REG_USER'];
 
 //ฟังชั่นนับผลการส่งตรวจ
-function check_reulst($id){
+function check_reulst($id)
+{
   $mysqli = connect();
-    $sql = "select * from info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where   info_t2.std_id=".$id;
-    $rs = $mysqli->query($sql);
-    return $rs->num_rows;
+  $sql = "select * from info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where   info_t2.std_id=" . $id;
+  $rs = $mysqli->query($sql);
+  return $rs->num_rows;
 }
 ?>
 <!DOCTYPE html>
@@ -358,85 +359,87 @@ function check_reulst($id){
    
                         <tbody>
                         <?php
-                         if(isset($_POST['key_id'])){
-                        if($_POST['key_id']!=""){
-                         $sql_show = "SELECT * FROM info_t2  left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id   WHERE   info_t2.std_id='$_POST[key_id]' AND  info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
-                         $rs_show = $mysqli->query($sql_show);
-                         }else{
-                          $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
-                          $rs_show = $mysqli->query($sql_show);
-                         }
-                        }else{
+
+                        if (isset($_POST['key_id'])) {
+                          if ($_POST['key_id'] != "") {
+                            $sql_show = "SELECT * FROM info_t2  left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id   WHERE   info_t2.std_id='$_POST[key_id]' AND  info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                            $rs_show = $mysqli->query($sql_show);
+                          } else {
+                            $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                            $rs_show = $mysqli->query($sql_show);
+                          }
+                        } else {
                           $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
                           $rs_show = $mysqli->query($sql_show);
                         }
-                         $i=1;
-                         foreach($rs_show as $row){
-                        ?>
-                          <tr>
-                            <td class="text-center"><?php echo $i;?></td>
-                            <td class="text-center"><?php 
-                              //แสดงข้อมูลนิสิต
-                               $sql_std = "SELECT STUDENTCODE,PREFIXNAME,STUDENTNAME,STUDENTSURNAME,FACULTYNAME,LEVELID,PROGRAMNAME FROM info_student WHERE STUDENTCODE=".$row['std_id'];
-                              $rs_std = $mysqli->query( $sql_std );
-                              $row_std = $rs_std->fetch_array();
-                              echo "ID : ".$row_std['STUDENTCODE'];
-                              echo $row_std['PREFIXNAME'];
-                              echo $row_std['STUDENTNAME'];
-                              echo $row_std['STUDENTSURNAME'];
-                              echo "<br>";
-                              echo "Faculty ".$row_std['FACULTYNAME'];
-                              echo "Major :".$row_std['FACULTYNAME'];
-                            ?>
-                            
-                          </td>
-                            <td>ส่งตรวจครั้งที่ <?php echo check_reulst($row['std_id']);?>
-                              </td>                              
-                              <td>
-                                <?php
-                                  $sql_reslue = "SELECT rusultTest,examination_date FROM info_t2_check WHERE t2_id=".$row['t2_id'];
-                                  $rs_reslue = $mysqli->query($sql_reslue);
-                                  $row_reslue = $rs_reslue->fetch_array();
-                                  $rusultTest = $row_reslue['rusultTest'];
-                                  if($rusultTest==1){ ?>
-                                   <div class="form-check d-flex justify-content-center">
-                                   <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-success get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
-                                </div>
-                                <?php  }else if($rusultTest==2){ ?>
-                                  <div class="form-check d-flex justify-content-center">
-                                  <a href="#" data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-danger get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
-                                </div>
-                               <?php   }else{
-
-                                ?>
-                                <div class="form-check d-flex justify-content-center">
-                                <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-warning get_data" data-bs-toggle="modal" data-bs-target="#exampleModal"> รอดำเนินการ </a>
-                                </div>
-                                <?php
-                                  }
-                                ?>
-                              </td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                  <?php echo $row['send_date'];?>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                               <?php
-                                 if($rusultTest==0){
-                                    echo "-";
-                                 }else{
-                                    echo $row_reslue['examination_date'];
-                                 }
-                               ?>
-                              </div>
-                            </td>
-                          </tr>
-                          <?php
-                          $i++;
-                         }
+                        $i = 1;
+                        foreach ($rs_show as $row) {
                           ?>
+                              <tr>
+                                <td class="text-center"><?php echo $i; ?></td>
+                                <td class="text-center"><?php
+                                //แสดงข้อมูลนิสิต
+                                $sql_std = "SELECT STUDENTCODE,PREFIXNAME,STUDENTNAME,STUDENTSURNAME,FACULTYNAME,LEVELID,PROGRAMNAME FROM info_student WHERE STUDENTCODE=" . $row['std_id'];
+                                $rs_std = $mysqli->query($sql_std);
+                                $row_std = $rs_std->fetch_array();
+                                echo "ID : " . $row_std['STUDENTCODE'];
+                                echo $row_std['PREFIXNAME'];
+                                echo $row_std['STUDENTNAME'];
+                                echo $row_std['STUDENTSURNAME'];
+                                echo "<br>";
+                                echo "Faculty " . $row_std['FACULTYNAME'];
+                                echo "Major :" . $row_std['FACULTYNAME'];
+                                ?>
+                            
+                              </td>
+                                <td>ส่งตรวจครั้งที่ <?php echo check_reulst($row['std_id']); ?>
+                                  </td>                              
+                                  <td>
+                                    <?php
+                                    $sql_reslue = "SELECT rusultTest,examination_date FROM info_t2_check WHERE t2_id=" . $row['t2_id'];
+                                    $rs_reslue = $mysqli->query($sql_reslue);
+                                    $row_reslue = $rs_reslue->fetch_array();
+                                    $rusultTest = $row_reslue['rusultTest'];
+                                    if ($rusultTest == 1) { ?>
+                                           <div class="form-check d-flex justify-content-center">
+                                           <a href="#"  data-t2-id="<?php echo $row['t2_id']; ?>" class="btn btn-success get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
+                                        </div>
+                                    <?php } else if ($rusultTest == 2) { ?>
+                                              <div class="form-check d-flex justify-content-center">
+                                              <a href="#" data-t2-id="<?php echo $row['t2_id']; ?>" class="btn btn-danger get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
+                                            </div>
+                                   <?php } else {
+
+                                      ?>
+                                            <div class="form-check d-flex justify-content-center">
+                                            <a href="#"  data-t2-id="<?php echo $row['t2_id']; ?>" class="btn btn-warning get_data" data-bs-toggle="modal" data-bs-target="#exampleModal"> รอดำเนินการ </a>
+                                            <!-- <a href="gs-get-t2-details.php?id=<?php echo $row['t2_id'];?>" class="btn btn-warning get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">test</a> -->
+                                          </div>
+                                        <?php
+                                    }
+                                    ?>
+                                  </td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                      <?php echo $row['send_date']; ?>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                   <?php
+                                   if ($rusultTest == 0) {
+                                     echo "-";
+                                   } else {
+                                     echo $row_reslue['examination_date'];
+                                   }
+                                   ?>
+                                  </div>
+                                </td>
+                              </tr>
+                              <?php
+                              $i++;
+                        }
+                        ?>
                         </tbody>
                       </table>
                     </div>
@@ -455,7 +458,7 @@ function check_reulst($id){
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดผลการตรวจรูปแบบ</h5>
+        <h5 class="modal-title text-center" id="exampleModalLabel">รายละเอียดผลการตรวจรูปแบบ</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -517,14 +520,14 @@ function check_reulst($id){
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-$('.get_data').on('click',function() {
-	//alert("OK");
-     var id = $(this).attr("data-t2-id");
-    // alert(id);
-		 $.post('gs-get-t2-details.php',{ id:id },function(res){
-				$('#result').html(res).hide('slow').show('slow');
-			});	
-  });
-  </script>
+      $('.get_data').on('click', function () {
+        //alert("OK");
+        var id = $(this).attr("data-t2-id");
+        // alert(id);
+        $.post('gs-get-t2-details.php', { id: id }, function (res) {
+          $('#result').html(res).hide('slow').show('slow');
+        });
+      });
+    </script>
   </body>
 </html>
