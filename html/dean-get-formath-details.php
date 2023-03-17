@@ -11,6 +11,7 @@ $sql_chk = "Select * from info_t2 LEFT JOIN info_t2_check ON info_t2.t2_id=info_
 $rs_chk = $mysqli->query($sql_chk);
 $row_result = $rs_chk->fetch_array();
 
+
 ?>
 <form action="gs-check-formath-save.php" method="post">
   <h5>สรุปผลการตรวจ :
@@ -24,6 +25,7 @@ $row_result = $rs_chk->fetch_array();
   </h5>
 <div class="card text-start">
   <div class="card-body">
+    <label>สถานะการอนุมัติผู้บริหาร</label>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="rusultTest" id="rusultTest"   value="1" <?php if($row_result['rusultTest']==1){ echo "checked"; } ?>  required>
     <label class="form-check-label" for="flexRadioDefault1">

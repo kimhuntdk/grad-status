@@ -48,8 +48,14 @@ if (isset($_POST['submit'])) {
             $email = $std_id."@msu.ac.th";
             //ผลการตรวจ
             if ($rusultTest == 1) {
+               //ตรวจสอบก่อนว่าเคย insert หรือยัง
+               $sql_chk_app = "SELECT * FROM info_t2_approve WHERE t2_id=".$t2_id;
+               $rs_chk_app = $mysqli->query($sql_chk_app);
+               $num_chk_app = $rs_chk_app->num_rows;
+               if($num_chk_app==0){ //ถ้ายังไม่เคย ค่อยให้เพิ่มในฐานข้อมูล
                $sql_formart = "INSERT INTO info_t2_approve (t2_approve_id, t2_id, statusDocument, message, approval_date) VALUES (NULL, '$t2_id', 0, '', Now())"; //เพิ่มข้อมูลใน table การอนุมัติ
                $rs_formart = $mysqli->query($sql_formart);
+               }
                $str_result = "pass/ผ่าน";
             } else if ($rusultTest == 2) {
                $str_result = "not pass/ไม่ผ่าน";

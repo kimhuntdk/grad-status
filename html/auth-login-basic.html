@@ -264,7 +264,13 @@
 						window.location.href = 'gs-form-t2.php';
 					}, 1000 );
 				
-				}
+				} else if ( data == 5 ) {
+
+          setTimeout( function () {
+            window.location.href = 'dean.php';
+          }, 1000 );
+
+          }
 				 else {
 					alert( "ไม่สามารถ login เข้าสู่ระบบได้ กรุณาตรวจสอบ Username และ Password อีกครั้ง เป็นตัวเดียวกันกับ ระบบลงทะเบียน reg.msu.ac.th" );
 				}

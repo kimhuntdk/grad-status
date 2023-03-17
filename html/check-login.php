@@ -194,14 +194,15 @@ foreach ( $mydata as $result ) {
 }
 } 
 //echo $status."= staff";
-if($status==""){
+$user_chk = substr($user, 0, 5);//ตรวจสอบว่าเป็นผู้บริหารหรือไม่
+if($status=="" and $user_chk!="admin"){
   	$sql_chk_sf = "select staff_username,staff_pass,staff_faculty_id FROM  request_staff_faculty WHERE  staff_username='$user'";
 		$rs_chk_sf = $mysqli->query($sql_chk_sf);
 		$row_chk_sf =$rs_chk_sf->fetch_array();
 		$pass_t_sf = $row_chk_sf['staff_pass'];
 		$staff_faculty_id = $row_chk_sf['staff_faculty_id'];
 	 	$num_chk_sf = $rs_chk_sf->num_rows;
-								if($num_chk_sf>0){
+				if($num_chk_sf>0){
 									if($pass_t_sf==$pass and $staff_faculty_id==0 ){ //เจ้าหน้าบัณฑิตวิทยาลัย
 										$_SESSION['SES_EN_REG_ID'] = session_id();
 										$_SESSION['SES_EN_REG_USER'] 	= $user;
@@ -217,9 +218,26 @@ if($status==""){
 									 echo 0; // เข้าระบบได้เป็นสถานะ เจ้าหน้าที่
 								}
 			}
-}
-  
-     
+}else{
+  $sql_chk_admin = "select * FROM  request_staff WHERE  staff_user='$user'";
+  $rs_chk_admin = $mysqli->query($sql_chk_admin);
+  $row_chk_admin =$rs_chk_admin->fetch_array();
+  $pass_t_sf = $row_chk_admin['staff_pass'];
+  $level = $row_chk_sf['staff_level'];
+  $num_chk_admin = $rs_chk_admin->num_rows;
+  if($num_chk_admin>0){
+    if($pass_t_sf==$pass){ //ผู้บริหาร
+      $_SESSION['SES_EN_REG_ID'] = session_id();
+      $_SESSION['SES_EN_REG_USER'] 	= $user;
+      $_SESSION['SES_EN_REG_LEVEL'] 	= $level;
+      echo 5; // เข้าระบบได้เป็นสถานะ ผู้บริหาร
+     }
+    else {
+     echo 0; // เข้าระบบได้เป็นสถานะ ผู้บริหาร
+  }
+
+  }
+}     
   
 } else {
     echo 0;//กลับหน้า login

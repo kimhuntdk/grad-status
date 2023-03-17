@@ -350,7 +350,7 @@ function check_reulst($id)
                           <tr>
                             <th class="text-center">ลำดับ No.</th>
                             <th class="text-center">ข้อมูลนิสิต</th>
-                            <th class="text-center">รายการ</th>
+                            <th class="text-center">รอบที่ส่งตรวจ</th>
                             <th class="text-center">การตรวจสอบ (Result)</th>
                             <th class="text-center">วันที่ส่งตรวจ</th>
                             <th class="text-center">วันที่ตรวจเสร็จ</th>
@@ -362,16 +362,17 @@ function check_reulst($id)
 
                         if (isset($_POST['key_id'])) {
                           if ($_POST['key_id'] != "") {
-                            $sql_show = "SELECT * FROM info_t2  left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id   WHERE   info_t2.std_id='$_POST[key_id]'  order by  info_t2.t2_id ";
+                            $sql_show = "SELECT * FROM info_t2_approve  left join info_t2 on info_t2_approve.t2_id=info_t2.t2_id   WHERE   info_t2.std_id='$_POST[key_id]'  order by  info_t2_approve.t2_id ";
                             $rs_show = $mysqli->query($sql_show);
                           } else {
-                            $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                            $sql_show = "SELECT * FROM info_t2_approve left join info_t2 on info_t2_approve.t2_id=info_t2.t2_id Where    info_t2_approve.statusDocument=0 order by  info_t2_approve.t2_id ";
                             $rs_show = $mysqli->query($sql_show);
                           }
                         } else {
-                          $sql_show = "SELECT * FROM info_t2 left join info_t2_check on info_t2.t2_id=info_t2_check.t2_id Where    info_t2_check.rusultTest=0 order by  info_t2.t2_id ";
+                          $sql_show = "SELECT * FROM info_t2_approve left join info_t2 on info_t2_approve.t2_id=info_t2.t2_id Where    info_t2_approve.statusDocument=0 order by  info_t2_approve.t2_id ";
                           $rs_show = $mysqli->query($sql_show);
                         }
+                        //echo $sql_show;
                         $i = 1;
                         foreach ($rs_show as $row) {
                           ?>
@@ -382,31 +383,29 @@ function check_reulst($id)
                                 $sql_std = "SELECT STUDENTCODE,PREFIXNAME,STUDENTNAME,STUDENTSURNAME,FACULTYNAME,LEVELID,PROGRAMNAME FROM info_student WHERE STUDENTCODE=" . $row['std_id'];
                                 $rs_std = $mysqli->query($sql_std);
                                 $row_std = $rs_std->fetch_array();
-                                echo "ID : " . $row_std['STUDENTCODE'];
+                                echo "ID : " . $row_std['STUDENTCODE']." ";
                                 echo $row_std['PREFIXNAME'];
-                                echo $row_std['STUDENTNAME'];
-                                echo $row_std['STUDENTSURNAME'];
+                                echo $row_std['STUDENTNAME']." ";
+                                echo $row_std['STUDENTSURNAME']." ";
                                 echo "<br>";
-                                echo "Faculty " . $row_std['FACULTYNAME'];
-                                echo "Major :" . $row_std['FACULTYNAME'];
+                                echo "Faculty : " . $row_std['FACULTYNAME'];
+                                echo "Major : " . $row_std['FACULTYNAME'];
                                 ?>
                             
                               </td>
                                 <td>ส่งตรวจครั้งที่ <?php 
-                                if(isset($_POST['key_id'])){
-                                  echo $i;
-                                }else{
+                            
                                 echo check_reulst($row['std_id']); 
-                                }
+                                
                                 
                                 ?>
                                   </td>                              
                                   <td>
                                     <?php
-                                    $sql_reslue = "SELECT rusultTest,examination_date FROM info_t2_check WHERE t2_id=" . $row['t2_id'];
+                                    $sql_reslue = "SELECT statusDocument,approval_date FROM info_t2_approve WHERE t2_id=" . $row['t2_id'];
                                     $rs_reslue = $mysqli->query($sql_reslue);
                                     $row_reslue = $rs_reslue->fetch_array();
-                                    $rusultTest = $row_reslue['rusultTest'];
+                                    $rusultTest = $row_reslue['statusDocument'];
                                     if ($rusultTest == 1) { ?>
                                            <div class="form-check d-flex justify-content-center">
                                            <a href="#"  data-t2-id="<?php echo $row['t2_id']; ?>" class="btn btn-success get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
@@ -428,7 +427,7 @@ function check_reulst($id)
                                   </td>
                                 <td>
                                   <div class="d-flex justify-content-center">
-                                      <?php echo $row['send_date']; ?>
+                                      <?php echo $row['approval_date']; ?>
                                   </div>
                                 </td>
                                 <td>
@@ -437,7 +436,7 @@ function check_reulst($id)
                                    if ($rusultTest == 0) {
                                      echo "-";
                                    } else {
-                                     echo $row_reslue['examination_date'];
+                                     echo $row_reslue['approval_date'];
                                    }
                                    ?>
                                   </div>
@@ -531,7 +530,7 @@ function check_reulst($id)
         //alert("OK");
         var id = $(this).attr("data-t2-id");
         // alert(id);
-        $.post('gs-get-t2-details.php', { id: id }, function (res) {
+        $.post('dean-get-formath-details.php', { id: id }, function (res) {
           $('#result').html(res).hide('slow').show('slow');
         });
       });
