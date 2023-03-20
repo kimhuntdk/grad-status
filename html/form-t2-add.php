@@ -394,7 +394,21 @@ $num_chk = $rs_chk->num_rows;
                   </form>
                     <div id="form-send">
                       <form action="t2-send.php" method="post"  name="from">
-                        Confrim File 
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"><strong> ประเภทวิทยานิพนธ์</strong></label>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="Thesis" required >
+                        <label class="form-check-label" for="gridRadios1">
+                          Thesis
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_thesis_is" id="type_thesis_is" value="IS" required >
+                        <label class="form-check-label" for="gridRadios1">
+                          IS
+                        </label>
+                      </div>
+                      </div>
                         <input type="submit" name="submit" value="Submit" class="btn btn-success">
 
                     <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
@@ -435,13 +449,13 @@ $num_chk = $rs_chk->num_rows;
                         <label  class="form-label"><strong> File Thesis/IS</strong></label>
                         <label for="exampleFormControlInput1" class="form-label">ไฟล์หรือลิงค์</label>
                         File:
-                        <input type="radio" name="type_file_url" id="type_file_url1" class="form-check-input" value="1" required>
+                        <input type="radio" name="type_file_url1" id="type_file_url1" class="form-check-input" value="1" required>
                         url:
-                        <input type="radio" name="type_file_url" id="type_file_url1"  class="form-check-input" value="2" required>
-                        <div id="show-file">
+                        <input type="radio" name="type_file_url1" id="type_file_url1"  class="form-check-input" value="2" required>
+                        <div id="show-file1">
                          <input type="file" name="FileThesis" id="FileThesis" class="form-control">
                        </div>
-                       <div id="show-link">
+                       <div id="show-link1">
                         <input type="text" name="urlThesis" id="urlThesis" class="form-control" placeholder="http..">
                        </div>
                       <div class="mb-3">
@@ -517,6 +531,8 @@ $num_chk = $rs_chk->num_rows;
             $("#form-send").hide();
             $("#show-file").hide();
             $("#show-link").hide();
+            $("#show-file1").hide();
+            $("#show-link1").hide();
             $( "#chkVal" ).change(function() {
               var id = $('#chkVal').val();
               //alert(id);
@@ -531,7 +547,7 @@ $num_chk = $rs_chk->num_rows;
               }
               //ฟอร์มส่งครั้งแรก
               $('input[type=radio][name=type_file_url]').change(function() {
-                alert(this.value);
+               // alert(this.value);
               if (this.value == '1') {
                      $("#show-file").show();
                      $("#show-link").hide();
@@ -541,19 +557,20 @@ $num_chk = $rs_chk->num_rows;
                     $("#show-link").show();
               }
           });
-          //ฟอร์มส่งครั้งที่ 2
-          $('input[type=radio][id=type_file_url1]').change(function() {
-                alert(this.value);
-              if (this.value == '1') {
-                     $("#show-file").show();
-                     $("#show-link").hide();
-              }
-              else if (this.value == '2') {
-                     $("#show-file").hide();
-                    $("#show-link").show();
-              }
-          });
+
         });
+                  //ฟอร์มส่งครั้งที่ 2
+              $('input[type=radio][name=type_file_url1]').change(function() {
+               // alert(this.value);
+              if (this.value == '1') {
+                     $("#show-file1").show();
+                     $("#show-link1").hide();
+              }
+              else if (this.value == '2') {
+                     $("#show-file1").hide();
+                    $("#show-link1").show();
+              }
+          });
     });
     </script>
   </body>
