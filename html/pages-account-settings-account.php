@@ -5,7 +5,7 @@
     $mysqli = connect();
     $query = "SELECT * FROM info_student WHERE STUDENTCODE =".$_SESSION['SES_EN_REG_USER'] ;
     $result = mysqli_query($mysqli,$query);
-    
+    echo $_SESSION['SES_STD_FAC_ID'];
     ?>
 <!DOCTYPE html>
 
@@ -228,7 +228,7 @@
 
                                   
                                 /> -->
-                             
+                             <?php echo $_SESSION['SES_STD_FAC_ID'];?>
                         </div>
                      </div>
                     

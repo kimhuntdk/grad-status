@@ -1,18 +1,12 @@
 <?php
 @ob_start();
 @session_start();
-date_default_timezone_set("Asia/Bangkok");
-require_once("../inc/db_connect.php");
+date_default_timezone_set( "Asia/Bangkok" );
+require_once( "../inc/db_connect.php" );
 $mysqli = connect();
 $std_id = $_SESSION['SES_EN_REG_USER'];
-//ตรวจสอบก่อนว่ามีการส่งตรวจแล้วหรือไม่
-$sql_chk = "SELECT * FROM info_t2 WHERE std_id=" . $std_id;
-$rs_chk = $mysqli->query($sql_chk);
-$num_chk = $rs_chk->num_rows;
-
 ?>
 <!DOCTYPE html>
-
 <!-- beautify ignore:start -->
 <html
   lang="en"
@@ -29,7 +23,7 @@ $num_chk = $rs_chk->num_rows;
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>ฟอร์มเพิ่มปฏิทิน</title>
+    <title>ตรวจรูปแบบ</title>
 
     <meta name="description" content="" />
 
@@ -306,97 +300,136 @@ $num_chk = $rs_chk->num_rows;
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">Calender /</span> ฟอร์มเพิ่มปฏิทิน
+                <span class="text-muted fw-light">ตรวจรูปแบบ /</span> ฟอร์มตรวจรูปแบบ
               </h4>
 
               <div class="row">
-                <div class="col-md-12">ß
+                <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
                       <a class="nav-link" href="index.php"
                         ><i class="bx bx-home"></i> หน้าหลัก</a>
                     </li> 
-                    <li class="nav-item">
-                          <a class="nav-link " href="admin_calendar.php"
-                            ><i class=" bx bx-support"></i> ข้อมูลปฏิทิน</a>
+                      <li class="nav-item">
+                          <a class="nav-link " href="./journal-Add.html"
+                            ><i class=" bx bx-support"></i> ข้อมูลตรวจรูปแบบ</a>
                         </li> 
                         <li class="nav-item">
-                          <a class="nav-link  " href="admin-calendar-add.php"
-                            ><i class=" bx bx-support"></i> ฟอร์มเพิ่มปฏิทิน</a>
+                          <a class="nav-link  " href="./journal-Edit.html"
+                            ><i class=" bx bx-support"></i> ฟอร์มส่งตรวจรูปแบบ</a>
                         </li>
                   </ul>
                 
-                    <h4 class="fw-bold py-3 mb-4">รายการการปฏิทิน</h4>
+                
+                  
+                  
+                
+               
+
+                    <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจรูปแบบ</h4>
                     
                   <div class="card">
-                  <!-- <div class="bs-toast toast fade show bg-danger"
-                                            role="alert"
-                                            aria-live="assertive"
-                                            aria-atomic="true"
-                                          >
-                  <div class="toast-header">
-                                              <i class="bx bx-bell me-2"></i>
-                                              <div class="me-auto fw-semibold">ข้อชี้แนะ</div>
-                                              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                            </div>
-                                            <div class="toast-body">
-                                              !!! หากผลสอบของท่านยังไม่ผ่านสามารถคลิกที่ปุ่ม "ไม่ผ่าน" ทำตามขั้นตอนได้เลย.......
-                                            </div>
-</div> -->
                     <div class="table-responsive">
-            
-                    <div class="container">
-
-                    <div id="form-data" >
-             
-                        <form action="admin-calendar-save.php" method="post"  name="from" >
-                        
-                        <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label"><strong> ประเภทปฏิทิน</strong></label>
-                        <select id="cal_type" name="cal_type" class="form-control" required>
-                                <option value="">เลือก</option>
-                                <?php
-                                $sql_type = "SELECT * FROM info_calendar_type";
-                                $rs_type = $mysqli->query($sql_type);
-                                foreach ($rs_type as $row_type) {
-                                  echo " <option value='$row_type[cal_type_id]'>$row_type[cal_type_name] $row_type[semester]/$row_type[acdemicYear]</option>";
-                                }
-                                ?>
-                               
-                        </select>
-                      </div>
-                
-                        <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">ชื่อเรื่อง</label>
-                        <input type="text" class="form-control" id="cal_name" name="cal_name" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">วันที่เริ่มต้น</label>
-                        <input type="date"  class="form-control" id="cal_date_start" name="cal_date_start" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">วันที่สิ้นสุด (กรณีที่ไม่มีไม่ต้องเลือก)</label>
-                        <input type="date" class="form-control" id="cal_date_end" name="cal_date_end" >
-                      </div>
-
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th class="text-center">ลำดับ No.</th>
+                            <th class="text-center">รายการ</th>
+                            <th class="text-center">การตรวจสอบ (Result)</th>
+                            <th class="text-center">วันที่ส่งตรวจ</th>
+                            <th class="text-center">วันที่ตรวจเสร็จ</th>
+                          </tr>
+                        </thead>
    
-                        <input type="submit" name="submit" value="Submit" class="btn btn-success">
+                        <tbody>
+                        <?php
+                         $sql_show = "SELECT * FROM info_t2 WHERE std_id=".$std_id;
+                         $rs_show = $mysqli->query($sql_show);
+                         $i=1;
+                         foreach($rs_show as $row){
+                        ?>
+                          <tr>
+                            <td class="text-center"><?php echo $i;?></td>
+                            <td>ส่งตรวจครั้งที่ <?php echo $i;?>
+                              </td>                              
+                              <td>
+                                <?php
+                                  $sql_reslue = "SELECT rusultTest,examination_date FROM info_t2_check WHERE t2_id=".$row['t2_id'];
+                                  $rs_reslue = $mysqli->query($sql_reslue);
+                                  $row_reslue = $rs_reslue->fetch_array();
+                                  $rusultTest = $row_reslue['rusultTest'];
+                                  if($rusultTest==1){ ?>
+                                   <div class="form-check d-flex justify-content-center">
+                                   <a href="#"  data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ผ่าน</a>
+                                </div>
+                                <?php  }else if($rusultTest==2){ ?>
+                                  <div class="form-check d-flex justify-content-center">
+                                  <a href="#" data-t2-id="<?php echo $row['t2_id'];?>" class="btn btn-primary get_data" data-bs-toggle="modal" data-bs-target="#exampleModal">ไม่ผ่าน</a>
+                                </div>
+                               <?php   }else{
 
-                    <button type="reset" class="btn btn-outline-secondary" >Cancel</button>
-                      </form>
+                                ?>
+                                <div class="form-check d-flex justify-content-center">
+                                  รอดำเนินการ
+                                </div>
+                                <?php
+                                  }
+                                ?>
+                              </td>
+                            <td>
+                              <div class="d-flex justify-content-center">
+                                  <?php echo $row['send_date'];?>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="d-flex justify-content-center">
+                               <?php
+                                 if($rusultTest==0){
+                                    echo "-";
+                                 }else{
+                                    echo $row_reslue['examination_date'];
+                                 }
+                               ?>
+                              </div>
+                            </td>
+                          </tr>
+                          <?php
+                          $i++;
+                         }
+                          ?>
+                        </tbody>
+                      </table>
                     </div>
                     <div class="mt-2">
-                      
+                      <a type="submit" href="form-t2-add.php" class="btn btn-success">Add</a>
+                    
                     </div>
                     <!-- /Notifications -->
-           
+                  </div>
                 </div>
-         
-                 
               </div>
             </div>
             <!-- / Content -->
-            
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดผลการตรวจรูปแบบ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="result"></div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -405,7 +438,7 @@ $num_chk = $rs_chk->num_rows;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-              
+                  , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
                 
@@ -444,8 +477,18 @@ $num_chk = $rs_chk->num_rows;
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
-   <!-- select Dropdown -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
 
+$('.get_data').on('click',function() {
+	//alert("OK");
+     var id = $(this).attr("data-t2-id");
+    // alert(id);
+		$.post('get-t2-details.php',{ id:id },function(res){
+				$('#result').html(res).hide('slow').show('slow');
+			});	
+
+  });
+    </script>
   </body>
 </html>

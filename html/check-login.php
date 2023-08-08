@@ -89,6 +89,7 @@ foreach ( $mydata as $result ) {
              } else {
                foreach ($mydata as $result) {
                  $STUDENTCODE = $result["STUDENTCODE"];
+                 $SFACULTYID = $result["SFACULTYID"];
                  $CITIZENID = $result["CITIZENID"];
                }
              }
@@ -186,6 +187,7 @@ foreach ( $mydata as $result ) {
                     //  echo 1;
                       //echo $sqlup;
                    }
+                   $_SESSION['SES_STD_FAC_ID']= $SFACULTYID; //เพิ่มคณะที่สังกัด
     echo 1; // เข้าระบบได้เป็นสถานะ นิสิต
   } else {
     echo 0;

@@ -312,11 +312,11 @@ $std_id = $_SESSION['SES_EN_REG_USER'];
                         ><i class="bx bx-home"></i> หน้าหลัก</a>
                     </li> 
                       <li class="nav-item">
-                          <a class="nav-link " href="./journal-Add.html"
+                          <a class="nav-link " href="admin_calendar.php"
                             ><i class=" bx bx-support"></i> ข้อมูลปฏิทิน</a>
                         </li> 
                         <li class="nav-item">
-                          <a class="nav-link  " href="./journal-Edit.html"
+                          <a class="nav-link  " href="admin-calendar-add.php"
                             ><i class=" bx bx-support"></i> ฟอร์มเพิ่มปฏิทิน</a>
                         </li>
                   </ul>
@@ -489,7 +489,7 @@ $std_id = $_SESSION['SES_EN_REG_USER'];
             $('#result').html(res).hide('slow').show('slow');
           });	
     });
-
+    $('.get_data').trigger();
     $("#contactForm").submit(function() {
        alert("OK");
       // $.post(url, $.param($(this).serializeArray()), function(data) {

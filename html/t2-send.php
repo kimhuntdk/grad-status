@@ -21,7 +21,7 @@ if($type_file_url==1){
 if(isset($_POST['submit'])){
 
   //ตรวจสอลก่อนว่าเคยเคยส่งมาตรวจแล้ว เจ้าหน้าที่ตรวจหรือยัง
-  $sql_chk_formart = "SELETE info_t2_check.rusultTest FROM  info_t2  LEFT JOIN info_t2_check ON info_t2.t2_id=info_t2_check.t2_id WHERE info_t2_check.rusultTest=0 ANDinfo_t2.std_id=".$std_id;
+  echo $sql_chk_formart = "SELECT info_t2_check.rusultTest FROM  info_t2  LEFT JOIN info_t2_check ON info_t2.t2_id=info_t2_check.t2_id WHERE info_t2_check.rusultTest=0 AND info_t2.std_id=".$std_id;
   $rs_chk_formart = $mysqli->query($sql_chk_formart);
   $num_chk_formart = $rs_chk_formart->num_rows;
 
@@ -89,7 +89,7 @@ if($_FILES['FileSubmit']['name']){
     $row_max = $rs_max->fetch_array();
     $max_id = $row_max['max_id'];
     //เพิ่มข้อมูลตารางตรวจรูปแบบ
-    $sql_check_t2="INSERT INTO info_t2_check (t2_check_id, t2_id, rusultTest, cover, title_page, approval_page, abstract_th_en, table_contents, vita, bibliography, examination_date, mes_cover, mes_title_page, mes_approval_page, mes_abstract, mes_table_contents, mes_vita, mes_bibliography, other_message) VALUES (NULL, '$max_id', '0', '0', '0', '0', '0', '0', '0', '0',Now(), '', '', '', '', '', '', '', '')";
+    echo $sql_check_t2="INSERT INTO info_t2_check (t2_check_id, t2_id, rusultTest, cover, title_page, approval_page, abstract_th_en, table_contents, vita, bibliography, examination_date, mes_cover, mes_title_page, mes_approval_page, mes_abstract, mes_table_contents, mes_vita, mes_bibliography, other_message) VALUES (NULL, '$max_id', '0', '0', '0', '0', '0', '0', '0', '0',Now(), '', '', '', '', '', '', '', '')";
     $rs_check_t2 = $mysqli->query($sql_check_t2);
     if($rs_check_t2){
       echo "<script> window.location ='javascript:history.go(-1)'; </script>"; // ไป กลับ form เดิม

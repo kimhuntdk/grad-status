@@ -7,7 +7,6 @@ $mysqli = connect();
 $std_id = $_SESSION['SES_EN_REG_USER'];
 ?>
 <!DOCTYPE html>
-
 <!-- beautify ignore:start -->
 <html
   lang="en"
@@ -301,7 +300,7 @@ $std_id = $_SESSION['SES_EN_REG_USER'];
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">T2 /</span> form T2
+                <span class="text-muted fw-light">ตรวจรูปแบบ /</span> ฟอร์มตรวจรูปแบบ
               </h4>
 
               <div class="row">
@@ -313,11 +312,11 @@ $std_id = $_SESSION['SES_EN_REG_USER'];
                     </li> 
                       <li class="nav-item">
                           <a class="nav-link " href="./journal-Add.html"
-                            ><i class=" bx bx-support"></i> ข้อมูล T2</a>
+                            ><i class=" bx bx-support"></i> ข้อมูลตรวจรูปแบบ</a>
                         </li> 
                         <li class="nav-item">
                           <a class="nav-link  " href="./journal-Edit.html"
-                            ><i class=" bx bx-support"></i> ฟอร์มส่ง T2</a>
+                            ><i class=" bx bx-support"></i> ฟอร์มส่งตรวจรูปแบบ</a>
                         </li>
                   </ul>
                 
@@ -327,7 +326,7 @@ $std_id = $_SESSION['SES_EN_REG_USER'];
                 
                
 
-                    <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจ T2</h4>
+                    <h4 class="fw-bold py-3 mb-4">รายการการส่งตรวจรูปแบบ</h4>
                     
                   <div class="card">
                     <div class="table-responsive">

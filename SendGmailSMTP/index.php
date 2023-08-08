@@ -11,7 +11,7 @@ require_once('PHPMailer/PHPMailerAutoload.php');
 	$mail->isHTML();
 	$mail->CharSet = "utf-8"; //ตั้งเป็น UTF-8 เพื่อให้อ่านภาษาไทยได้
 	$mail->Username = "graduate@msu.ac.th"; //ให้ใส่ Gmail ของคุณเต็มๆเลย
-	$mail->Password = "123456789"; // ใส่รหัสผ่าน
+	$mail->Password = "Grad@123456789"; // ใส่รหัสผ่าน
 	$mail->SetFrom = ('graduate@msu.ac.th'); //ตั้ง email เพื่อใช้เป็นเมล์อ้างอิงในการส่ง ใส่หรือไม่ใส่ก็ได้ เพราะผมก็ไม่รู้ว่ามันแาดงให้เห็นตรงไหน
 	$mail->FromName = "บัณฑิตวิทยาลัย มมส"; //ชื่อที่ใช้ในการส่ง
 	$mail->Subject = "[e-Form MSU] นิสิตได้ส่งคำร้องลาพักการเรียน";  //หัวเรื่อง emal ที่ส่ง
